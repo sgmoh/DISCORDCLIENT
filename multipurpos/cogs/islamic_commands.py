@@ -50,6 +50,16 @@ class IslamicCommands(commands.Cog):
             {"verse": "And We have certainly created man and know what his soul whispers to him, and We are closer to him than [his] jugular vein.", "surah": "Qaf 50:16"},
             {"verse": "For indeed, with hardship [will be] ease. Indeed, with hardship [will be] ease.", "surah": "Ash-Sharh 94:5-6"},
             {"verse": "And whoever puts all his trust in Allah, then He will suffice him.", "surah": "At-Talaq 65:3"},
+            {"verse": "And when My servants ask you concerning Me - indeed I am near. I respond to the invocation of the supplicant when he calls upon Me.", "surah": "Al-Baqarah 2:186"},
+            {"verse": "O you who have believed, seek help through patience and prayer. Indeed, Allah is with the patient.", "surah": "Al-Baqarah 2:153"},
+            {"verse": "And We will surely test you with something of fear and hunger and a loss of wealth and lives and fruits, but give good tidings to the patient.", "surah": "Al-Baqarah 2:155"},
+            {"verse": "Say, 'O My servants who have transgressed against themselves [by sinning], do not despair of the mercy of Allah. Indeed, Allah forgives all sins. Indeed, it is He who is the Forgiving, the Merciful.'", "surah": "Az-Zumar 39:53"},
+            {"verse": "The believers are only those who, when Allah is mentioned, their hearts become fearful, and when His verses are recited to them, it increases them in faith; and upon their Lord they rely.", "surah": "Al-Anfal 8:2"},
+            {"verse": "And whoever is guided is only guided for [the benefit of] himself. And whoever errs only errs against it. And no bearer of burdens will bear the burden of another.", "surah": "Al-Isra 17:15"},
+            {"verse": "And We have certainly honored the children of Adam and carried them on the land and sea and provided for them of the good things and preferred them over much of what We have created, with [definite] preference.", "surah": "Al-Isra 17:70"},
+            {"verse": "And it is not for a soul to believe except by permission of Allah, and He will place defilement upon those who will not use reason.", "surah": "Yunus 10:100"},
+            {"verse": "And of His signs is that He created for you from yourselves mates that you may find tranquility in them; and He placed between you affection and mercy. Indeed in that are signs for a people who give thought.", "surah": "Ar-Rum 30:21"},
+            {"verse": "And the servants of the Most Merciful are those who walk upon the earth easily, and when the ignorant address them [harshly], they say [words of] peace.", "surah": "Al-Furqan 25:63"},
         ]
         
         # Define Islamic duas
@@ -80,7 +90,7 @@ class IslamicCommands(commands.Cog):
         # Add command examples
         commands = [
             f"`{CONFIG['prefix']}hadith` - Get a random hadith",
-            f"`{CONFIG['prefix']}quran <surah:ayah>` - Get a Quran verse",
+            f"`{CONFIG['prefix']}quran` - Get a random Quran verse",
             f"`{CONFIG['prefix']}dua` - Get a random dua",
             f"`{CONFIG['prefix']}islamic reminder` - Get a random Quranic reminder",
             f"`{CONFIG['prefix']}islamic calendar` - View Islamic calendar date"
@@ -177,60 +187,23 @@ class IslamicCommands(commands.Cog):
     
     @commands.command(name="quran")
     async def quran(self, ctx, reference=None):
-        """Get a Quran verse
+        """Get a random Quran verse
         
         Args:
-            reference: Surah and verse reference (e.g., 2:255 for Ayatul Kursi)
+            reference: Optional surah and verse reference (e.g., 2:255 for Ayatul Kursi)
         """
-        if not reference:
-            embed = discord.Embed(
-                title="❓ Quran Reference Required",
-                description=f"Please provide a Quran reference in the format `surah:ayah`.\nExample: `{CONFIG['prefix']}quran 2:255` for Ayatul Kursi.",
-                color=CONFIG['colors']['warning']
-            )
-            await ctx.send(embed=embed)
-            return
+        # Simply show a random verse instead of requiring specific input
+        verse = random.choice(self.quran_verses)
         
-        try:
-            # Parse reference
-            parts = reference.split(':')
-            if len(parts) != 2:
-                raise ValueError("Invalid format")
-                
-            surah = int(parts[0])
-            ayah = int(parts[1])
-            
-            # For simplicity and to avoid external API dependency, provide a fallback
-            embed = discord.Embed(
-                title=f"Surah {surah}, Verse {ayah}",
-                description="This is a sample verse display. In a complete implementation, this would fetch the actual verse from an API.",
-                color=CONFIG['colors']['default']
-            )
-            
-            embed.add_field(
-                name="Note",
-                value="Due to the limits of this environment, this command displays a placeholder. In a full implementation, it would fetch the actual verse text from a Quran API.",
-                inline=False
-            )
-            
-            await ctx.send(embed=embed)
-                    
-        except Exception as e:
-            logger.error(f"Error processing Quran reference: {e}")
-            
-            embed = discord.Embed(
-                title="⚠️ Could not process verse reference",
-                description="Please check your reference format (surah:ayah) and try again.",
-                color=CONFIG['colors']['error']
-            )
-            
-            embed.add_field(
-                name="Example",
-                value=f"`{CONFIG['prefix']}quran 2:255` for Ayatul Kursi (The Throne Verse).",
-                inline=False
-            )
-            
-            await ctx.send(embed=embed)
+        embed = discord.Embed(
+            title="📖 Quran Verse",
+            description=verse["verse"],
+            color=CONFIG['colors']['default']
+        )
+        
+        embed.set_footer(text=f"Surah {verse['surah']}")
+        
+        await ctx.send(embed=embed)
     
     @islamic.command(name="calendar")
     async def islamic_calendar(self, ctx):

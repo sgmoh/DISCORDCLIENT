@@ -3,10 +3,8 @@
 CONFIG = {
     'prefix': '.',  # Bot command prefix
     'cogs': [
-        'enhanced_help_menu',  # Enhanced help menu with all commands
-        'info_commands',    # For .ping and .info commands
-        'clear_commands',   # For .clear command
-        'islamic_commands', # Islamic commands
+        'fixed_help_menu',  # Only use this help menu
+        'islamic_commands', # Islamic commands module
         'autorole',
         'giveaway',
         'simple_levels',
