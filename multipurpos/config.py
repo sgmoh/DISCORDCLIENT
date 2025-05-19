@@ -3,8 +3,9 @@
 CONFIG = {
     'prefix': '.',  # Bot command prefix
     'cogs': [
-        'fixed_help_menu',  # Only use this help menu
-        'islamic_commands', # Islamic commands module
+        'enhanced_help_menu',  # Use enhanced help menu that shows all commands
+        'islamic_commands',    # Islamic commands module
+        'logging',             # Server logging system
         'autorole',
         'giveaway',
         'simple_levels',

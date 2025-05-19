@@ -4,6 +4,96 @@ from config import CONFIG
 
 class EmbedCreator:
     @staticmethod
+    def create_invite_stats_embed(member, stats):
+        """Create an invite stats embed for a user
+        
+        Args:
+            member: The discord.Member to show stats for
+            stats: Dictionary containing invite statistics
+            
+        Returns:
+            discord.Embed: The invite stats embed
+        """
+        total_invites = stats.get('total', 0)
+        regular_invites = stats.get('regular', 0)
+        fake_invites = stats.get('fake', 0)
+        left_invites = stats.get('left', 0)
+        
+        embed = discord.Embed(
+            title=f"📨 Invite Statistics for {member.display_name}",
+            description=f"{member.mention} has invited **{total_invites}** members to this server.",
+            color=CONFIG['colors']['default']
+        )
+        
+        # Set user avatar as thumbnail
+        embed.set_thumbnail(url=member.display_avatar.url)
+        
+        # Add invite breakdown
+        embed.add_field(
+            name="Invite Breakdown",
+            value=f"✅ **{regular_invites}** Regular\n"
+                  f"❌ **{fake_invites}** Fake\n"
+                  f"🚶 **{left_invites}** Left",
+            inline=True
+        )
+        
+        # Add information about invites
+        embed.add_field(
+            name="What counts as...",
+            value="**Regular**: Real users who stayed\n"
+                  "**Fake**: New accounts or potential alts\n"
+                  "**Left**: Users who have left the server",
+            inline=True
+        )
+        
+        # Add footer
+        embed.set_footer(text="Invite someone new today!")
+        
+        return embed
+    
+    @staticmethod
+    def create_giveaway_embed(prize, end_time, host, winners_count):
+        """Create a giveaway embed
+        
+        Args:
+            prize: The prize being given away
+            end_time: When the giveaway ends (timestamp)
+            host: The user hosting the giveaway
+            winners_count: Number of winners
+            
+        Returns:
+            discord.Embed: The giveaway embed
+        """
+        embed = discord.Embed(
+            title="🎉 GIVEAWAY 🎉",
+            description=f"**Prize: {prize}**\n\n"
+                        f"React with 🎉 to enter!\n\n"
+                        f"Hosted by: {host.mention}",
+            color=CONFIG['colors']['default']
+        )
+        
+        # Add end time and winners info
+        embed.add_field(
+            name="Time Remaining",
+            value=f"Ends: <t:{int(end_time.timestamp())}:R>",
+            inline=True
+        )
+        
+        embed.add_field(
+            name="Winners",
+            value=f"{winners_count} {'winner' if winners_count == 1 else 'winners'}",
+            inline=True
+        )
+        
+        # Set user avatar as thumbnail
+        embed.set_thumbnail(url=host.display_avatar.url)
+        
+        # Add footer
+        embed.set_footer(text=f"Ends at • {end_time.strftime('%Y-%m-%d %H:%M:%S UTC')}")
+        
+        return embed
+        
+    @staticmethod
     def create_embed(title, description, color=None):
         """Create a styled embed with the given information
         
@@ -288,53 +378,5 @@ class EmbedCreator:
             value="React with the emoji for the role you want to receive or remove.",
             inline=False
         )
-        
-        return embed
-        
-    @staticmethod
-    def create_invite_stats_embed(member, stats):
-        """Create an invite stats embed for a user
-        
-        Args:
-            member: The discord.Member to show stats for
-            stats: Dictionary containing invite statistics
-            
-        Returns:
-            discord.Embed: The invite stats embed
-        """
-        total_invites = stats.get('total', 0)
-        regular_invites = stats.get('regular', 0)
-        fake_invites = stats.get('fake', 0)
-        left_invites = stats.get('left', 0)
-        
-        embed = discord.Embed(
-            title=f"📨 Invite Statistics for {member.display_name}",
-            description=f"{member.mention} has invited **{total_invites}** members to this server.",
-            color=CONFIG['colors']['default']
-        )
-        
-        # Set user avatar as thumbnail
-        embed.set_thumbnail(url=member.display_avatar.url)
-        
-        # Add invite breakdown
-        embed.add_field(
-            name="Invite Breakdown",
-            value=f"✅ **{regular_invites}** Regular\n"
-                  f"❌ **{fake_invites}** Fake\n"
-                  f"🚶 **{left_invites}** Left",
-            inline=True
-        )
-        
-        # Add information about invites
-        embed.add_field(
-            name="What counts as...",
-            value="**Regular**: Real users who stayed\n"
-                  "**Fake**: New accounts or potential alts\n"
-                  "**Left**: Users who have left the server",
-            inline=True
-        )
-        
-        # Add footer
-        embed.set_footer(text="Invite someone new today!")
         
         return embed
