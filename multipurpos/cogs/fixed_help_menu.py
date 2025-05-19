@@ -14,191 +14,91 @@ COMMANDS_INFO = {
     "general": {
         "help": {
             "description": "Shows this help menu",
-            "usage": "help",
-            "emoji": "<:help:1373370856239267940>"
+            "usage": "help"
         },
         "ping": {
             "description": "Check the bot's latency",
-            "usage": "ping",
-            "emoji": "<:Prefix:1373605377609957426>"
+            "usage": "ping"
         },
         "info": {
             "description": "Get information about the bot",
-            "usage": "info",
-            "emoji": "<:help:1373370856239267940>"
+            "usage": "info"
         }
     },
     "moderation": {
         "autorole": {
             "description": "Set a role to be automatically assigned to new members",
-            "usage": "autorole <role>",
-            "emoji": "<:Multipurpose:1373371000271409416>"
+            "usage": "autorole <role>"
         },
         "clearautorole": {
             "description": "Clear the autorole setting",
-            "usage": "clearautorole",
-            "emoji": "<:clear:1373370955279110245>"
+            "usage": "clearautorole"
         },
-        "kick": {
-            "description": "Kick a user from the server",
-            "usage": "kick <user> [reason]",
-            "emoji": "<:kick:1373370930440569073>"
+        "ticket": {
+            "description": "Set up the ticket system",
+            "usage": "ticket setup"
         },
-        "ban": {
-            "description": "Ban a user from the server",
-            "usage": "ban <user> [reason]",
-            "emoji": "<:banned:1373370889235726407>"
-        },
-        "warn": {
-            "description": "Warn a user",
-            "usage": "warn <user> [reason]",
-            "emoji": "<:Warn:1373605418315677807>"
-        },
-        "timeout": {
-            "description": "Timeout a user for a specified duration",
-            "usage": "timeout <user> <duration> [reason]",
-            "emoji": "<:timeout:1373371114155413504>"
-        },
-        "untimeout": {
-            "description": "Remove a timeout from a user",
-            "usage": "untimeout <user>",
-            "emoji": "<:timeout:1373371114155413504>"
-        },
-        "lock": {
-            "description": "Lock the current channel",
-            "usage": "lock",
-            "emoji": "<:Multipurpose:1373371000271409416>"
-        },
-        "unlock": {
-            "description": "Unlock the current channel",
-            "usage": "unlock",
-            "emoji": "<:Multipurpose:1373371000271409416>"
-        },
-        "slowmode": {
-            "description": "Set slowmode in the current channel",
-            "usage": "slowmode <seconds>",
-            "emoji": "<:mute:1373372051024248832>"
-        },
-        "clear": {
-            "description": "Clear messages from a channel",
-            "usage": "clear <amount>",
-            "emoji": "<:clear:1373370955279110245>"
+        "close": {
+            "description": "Close a ticket channel",
+            "usage": "close"
         }
     },
     "levels": {
         "level": {
             "description": "Check your level or someone else's level",
-            "usage": "level [user]",
-            "emoji": "<:Clipboard:1373605336820220097>"
+            "usage": "level [user]"
         },
         "leaderboard": {
             "description": "View the server's leaderboard",
-            "usage": "leaderboard <levels|messages|invites>",
-            "emoji": "<:Clipboard:1373605336820220097>"
+            "usage": "leaderboard <levels|messages|invites>"
         }
     },
     "invites": {
         "invites": {
             "description": "Check your invite stats or someone else's",
-            "usage": "invites [user]",
-            "emoji": "<:Join:1373605236354056346>"
+            "usage": "invites [user]"
         }
     },
     "messages": {
         "messages": {
             "description": "Check your message stats or someone else's",
-            "usage": "messages [user]",
-            "emoji": "<:Logs:1373372085866598550>"
+            "usage": "messages [user]"
         },
         "topmessages": {
             "description": "Show top message senders in the server",
-            "usage": "topmessages [all_time|today]",
-            "emoji": "<:Logs:1373372085866598550>"
+            "usage": "topmessages [all_time|today]"
         },
         "resetmessages": {
             "description": "Reset message stats for a user (Admin only)",
-            "usage": "resetmessages <user>",
-            "emoji": "<:clear:1373370955279110245>"
+            "usage": "resetmessages <user>"
         }
     },
     "giveaways": {
         "gstart": {
             "description": "Start a giveaway",
-            "usage": "gstart <duration> <winners> <prize>",
-            "emoji": "<:giveaway:1373607514112790610>"
+            "usage": "gstart <duration> <winners> <prize>"
         },
         "gend": {
             "description": "End a giveaway early",
-            "usage": "gend <message_id>",
-            "emoji": "<:giveaway:1373607514112790610>"
+            "usage": "gend <message_id>"
         },
         "greroll": {
             "description": "Reroll a giveaway",
-            "usage": "greroll <message_id>",
-            "emoji": "<:giveaway:1373607514112790610>"
+            "usage": "greroll <message_id>"
         }
     },
     "roles": {
         "reactionrole": {
             "description": "Set up a reaction role message",
-            "usage": "reactionrole create",
-            "emoji": "<:ReactionRole:1373607898730725469>"
+            "usage": "reactionrole create"
         },
         "reactionrole delete": {
             "description": "Delete a reaction role message",
-            "usage": "reactionrole delete <message_id>",
-            "emoji": "<:ReactionRole:1373607898730725469>"
+            "usage": "reactionrole delete <message_id>"
         },
         "reactionrole list": {
             "description": "List all reaction role messages",
-            "usage": "reactionrole list",
-            "emoji": "<:ReactionRole:1373607898730725469>"
-        }
-    },
-    "tickets": {
-        "ticket": {
-            "description": "Set up the ticket system",
-            "usage": "ticket setup",
-            "emoji": "<:ticket:1373371061340606594>"
-        },
-        "close": {
-            "description": "Close a ticket channel",
-            "usage": "close",
-            "emoji": "<:ticket:1373371061340606594>"
-        }
-    },
-    "welcome": {
-        "welcome": {
-            "description": "Set up welcome messages for new members",
-            "usage": "welcome setup",
-            "emoji": "<:joinleave:1373607445439709225>"
-        }
-    },
-    "polls": {
-        "poll create": {
-            "description": "Create a poll with multiple options",
-            "usage": "poll create \"Question?\" \"Option 1\" \"Option 2\" ...",
-            "emoji": "<:Clipboard:1373605336820220097>"
-        },
-        "poll timed": {
-            "description": "Create a timed poll that automatically ends",
-            "usage": "poll timed \"Question?\" 1h \"Option 1\" \"Option 2\" ...",
-            "emoji": "<:Clipboard:1373605336820220097>"
-        },
-        "poll quick": {
-            "description": "Create a quick yes/no poll",
-            "usage": "poll quick \"Question?\"",
-            "emoji": "<:Clipboard:1373605336820220097>"
-        },
-        "poll end": {
-            "description": "End a poll early and show results",
-            "usage": "poll end <poll_id>",
-            "emoji": "<:Clipboard:1373605336820220097>"
-        },
-        "poll list": {
-            "description": "List all active polls in the server",
-            "usage": "poll list",
-            "emoji": "<:Clipboard:1373605336820220097>"
+            "usage": "reactionrole list"
         }
     }
 }
@@ -321,9 +221,7 @@ class CategorySelect(discord.ui.Select):
         if commands:
             command_list = []
             for cmd_name, cmd_info in commands.items():
-                # Add emoji if available
-                cmd_emoji = cmd_info.get('emoji', '')
-                command_list.append(f"{cmd_emoji} `{CONFIG['prefix']}{cmd_name}` - {cmd_info['description']}")
+                command_list.append(f"`{CONFIG['prefix']}{cmd_name}` - {cmd_info['description']}")
             
             # Make sure description is not None before appending
             if embed.description:
@@ -478,15 +376,6 @@ class FixedHelpMenu(commands.Cog):
                     value=f"{emoji} {category.title()}",
                     inline=True
                 )
-                
-                # Add command emoji if available
-                cmd_emoji = cmd_info.get('emoji', '')
-                if cmd_emoji:
-                    embed.add_field(
-                        name="Command Icon",
-                        value=f"{cmd_emoji}",
-                        inline=True
-                    )
                 
                 break
         
