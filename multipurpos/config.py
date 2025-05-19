@@ -4,6 +4,8 @@ CONFIG = {
     'prefix': '.',  # Bot command prefix
     'cogs': [
         'fixed_help_menu',  # Only use this help menu
+        'info_commands',    # For .ping and .info commands
+        'clear_commands',   # For .clear command
         'autorole',
         'giveaway',
         'simple_levels',
