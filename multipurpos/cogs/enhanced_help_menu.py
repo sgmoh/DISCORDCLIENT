@@ -437,10 +437,17 @@ class EnhancedHelpMenu(commands.Cog):
         # Get emoji for this command
         cmd_emoji = command_emojis.get(cmd.name, "")
         
+        # Clean up the help text by removing Args section
+        help_text = cmd.help or "No description available."
+        
+        # Remove the Args: section which can look ugly when truncated
+        if "Args:" in help_text:
+            help_text = help_text.split("Args:")[0].strip()
+        
         # Create detailed command help
         embed = discord.Embed(
             title=f"{cmd_emoji} Help: {CONFIG['prefix']}{cmd.name}",
-            description=cmd.help or "No description available.",
+            description=help_text,
             color=CONFIG['colors']['default']
         )
         
@@ -448,6 +455,25 @@ class EnhancedHelpMenu(commands.Cog):
         if cmd.aliases:
             aliases_text = ", ".join([f"`{CONFIG['prefix']}{alias}`" for alias in cmd.aliases])
             embed.add_field(name="Aliases", value=aliases_text, inline=False)
+        
+        # Add parameters in a cleaner format
+        if cmd.signature:
+            param_parts = cmd.signature.split()
+            param_text = ""
+            
+            for part in param_parts:
+                if part.startswith('<') and part.endswith('>'):
+                    # Format parameter nicely
+                    param_name = part[1:-1]
+                    # Check if there's a type hint like member: discord.Member
+                    if ':' in param_name:
+                        name, type_hint = param_name.split(':', 1)
+                        param_text += f"• **{name}** - {type_hint.strip()}\n"
+                    else:
+                        param_text += f"• **{param_name}**\n"
+            
+            if param_text:
+                embed.add_field(name="Parameters", value=param_text, inline=False)
         
         # Add usage
         usage = f"{CONFIG['prefix']}{cmd.name}"
@@ -503,7 +529,7 @@ class EnhancedHelpMenu(commands.Cog):
             for part in param_parts:
                 if part.startswith('<') and part.endswith('>'):
                     # Replace parameter with example value
-                    param_name = part[1:-1]
+                    param_name = part[1:-1].split(':', 1)[0]  # Remove type hints if any
                     if param_name == "member":
                         example_params.append("@user")
                     elif param_name == "amount":
