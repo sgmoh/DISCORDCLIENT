@@ -195,6 +195,67 @@ class CategorySelect(discord.ui.Select):
         
         if commands_in_category:
             command_text = ""
+            
+            # Get the category emoji
+            category_emoji = COMMAND_CATEGORIES[category]["emoji"]
+            
+            # Command-specific emojis
+            command_emojis = {
+                # General
+                "help": "<:help:1373370856239267940>",
+                "ping": "<:Prefix:1373605377609957426>",
+                "info": "<:help:1373370856239267940>",
+                
+                # Moderation
+                "kick": "<:kick:1373370930440569073>",
+                "ban": "<:banned:1373370889235726407>",
+                "warn": "<:Warn:1373605418315677807>",
+                "clear": "<:clear:1373370955279110245>",
+                "purge": "<:clear:1373370955279110245>",
+                "timeout": "<:timeout:1373371114155413504>",
+                "untimeout": "<:timeout:1373371114155413504>",
+                "timeoutinfo": "<:timeout:1373371114155413504>",
+                "lock": "<:Multipurpose:1373371000271409416>",
+                "unlock": "<:Multipurpose:1373371000271409416>",
+                "slowmode": "<:mute:1373372051024248832>",
+                
+                # Levels
+                "level": "<:Clipboard:1373605336820220097>",
+                "leaderboard": "<:Clipboard:1373605336820220097>",
+                
+                # Invites
+                "invites": "<:Join:1373605236354056346>",
+                
+                # Messages
+                "messages": "<:Logs:1373372085866598550>",
+                "topmessages": "<:Logs:1373372085866598550>",
+                "resetmessages": "<:Logs:1373372085866598550>",
+                
+                # Giveaways
+                "gstart": "<:giveaway:1373607514112790610>",
+                "gend": "<:giveaway:1373607514112790610>",
+                "greroll": "<:giveaway:1373607514112790610>",
+                
+                # Roles
+                "reactionrole": "<:ReactionRole:1373607898730725469>",
+                "rolemenu": "<:ReactionRole:1373607898730725469>",
+                
+                # Welcome
+                "welcome": "<:joinleave:1373607445439709225>",
+                "setwelcome": "<:joinleave:1373607445439709225>",
+                
+                # Tickets
+                "ticket": "<:ticket:1373371061340606594>",
+                "close": "<:ticket:1373371061340606594>",
+                
+                # Polls
+                "poll": "<:Clipboard:1373605336820220097>",
+                
+                # Logging
+                "logs": "<:Logs:1373372085866598550>",
+                "log": "<:Logs:1373372085866598550>"
+            }
+            
             for cmd in sorted(commands_in_category, key=lambda x: x.name):
                 # Get brief description or full help text
                 desc = cmd.brief or cmd.help
@@ -205,7 +266,10 @@ class CategorySelect(discord.ui.Select):
                 else:
                     desc = "No description available"
                 
-                command_text += f"`{CONFIG['prefix']}{cmd.name}` - {desc}\n"
+                # Get appropriate emoji for this command
+                cmd_emoji = command_emojis.get(cmd.name, category_emoji)
+                
+                command_text += f"{cmd_emoji} `{CONFIG['prefix']}{cmd.name}` - {desc}\n"
             
             embed.description = f"{embed.description}\n\n{command_text}"
         else:
@@ -271,17 +335,6 @@ class HelpView(discord.ui.View):
             color=CONFIG['colors']['default']
         )
         
-        # Add categories
-        categories_text = ""
-        for category_id, category_info in COMMAND_CATEGORIES.items():
-            categories_text += f"{category_info['emoji']} **{category_info['name']}** - {category_info['description']}\n"
-        
-        embed.add_field(
-            name="Categories",
-            value=categories_text,
-            inline=False
-        )
-        
         # Set footer with bot avatar
         embed.set_footer(
             text="Created by gh_sman", 
@@ -324,16 +377,77 @@ class EnhancedHelpMenu(commands.Cog):
             await ctx.send(embed=embed)
             return
         
+        # Command-specific emojis
+        command_emojis = {
+            # General
+            "help": "<:help:1373370856239267940>",
+            "ping": "<:Prefix:1373605377609957426>",
+            "info": "<:help:1373370856239267940>",
+            
+            # Moderation
+            "kick": "<:kick:1373370930440569073>",
+            "ban": "<:banned:1373370889235726407>",
+            "warn": "<:Warn:1373605418315677807>",
+            "clear": "<:clear:1373370955279110245>",
+            "purge": "<:clear:1373370955279110245>",
+            "timeout": "<:timeout:1373371114155413504>",
+            "untimeout": "<:timeout:1373371114155413504>",
+            "timeoutinfo": "<:timeout:1373371114155413504>",
+            "lock": "<:Multipurpose:1373371000271409416>",
+            "unlock": "<:Multipurpose:1373371000271409416>",
+            "slowmode": "<:mute:1373372051024248832>",
+            
+            # Levels
+            "level": "<:Clipboard:1373605336820220097>",
+            "leaderboard": "<:Clipboard:1373605336820220097>",
+            
+            # Invites
+            "invites": "<:Join:1373605236354056346>",
+            
+            # Messages
+            "messages": "<:Logs:1373372085866598550>",
+            "topmessages": "<:Logs:1373372085866598550>",
+            "resetmessages": "<:Logs:1373372085866598550>",
+            
+            # Giveaways
+            "gstart": "<:giveaway:1373607514112790610>",
+            "gend": "<:giveaway:1373607514112790610>",
+            "greroll": "<:giveaway:1373607514112790610>",
+            
+            # Roles
+            "reactionrole": "<:ReactionRole:1373607898730725469>",
+            "rolemenu": "<:ReactionRole:1373607898730725469>",
+            
+            # Welcome
+            "welcome": "<:joinleave:1373607445439709225>",
+            "setwelcome": "<:joinleave:1373607445439709225>",
+            
+            # Tickets
+            "ticket": "<:ticket:1373371061340606594>",
+            "close": "<:ticket:1373371061340606594>",
+            
+            # Polls
+            "poll": "<:Clipboard:1373605336820220097>",
+            
+            # Logging
+            "logs": "<:Logs:1373372085866598550>",
+            "log": "<:Logs:1373372085866598550>"
+        }
+        
+        # Get emoji for this command
+        cmd_emoji = command_emojis.get(cmd.name, "")
+        
         # Create detailed command help
         embed = discord.Embed(
-            title=f"Help: {CONFIG['prefix']}{cmd.name}",
+            title=f"{cmd_emoji} Help: {CONFIG['prefix']}{cmd.name}",
             description=cmd.help or "No description available.",
             color=CONFIG['colors']['default']
         )
         
         # Add aliases if any
         if cmd.aliases:
-            embed.add_field(name="Aliases", value=", ".join(cmd.aliases), inline=False)
+            aliases_text = ", ".join([f"`{CONFIG['prefix']}{alias}`" for alias in cmd.aliases])
+            embed.add_field(name="Aliases", value=aliases_text, inline=False)
         
         # Add usage
         usage = f"{CONFIG['prefix']}{cmd.name}"
@@ -380,6 +494,46 @@ class EnhancedHelpMenu(commands.Cog):
                 value=f"{cat_info['emoji']} {cat_info['name']}",
                 inline=True
             )
+        
+        # Add examples section with emoji
+        examples_text = f"{cmd_emoji} `{CONFIG['prefix']}{cmd.name}`"
+        if cmd.signature:
+            param_parts = cmd.signature.split()
+            example_params = []
+            for part in param_parts:
+                if part.startswith('<') and part.endswith('>'):
+                    # Replace parameter with example value
+                    param_name = part[1:-1]
+                    if param_name == "member":
+                        example_params.append("@user")
+                    elif param_name == "amount":
+                        example_params.append("10")
+                    elif param_name == "channel":
+                        example_params.append("#channel")
+                    elif param_name == "role":
+                        example_params.append("@role")
+                    elif param_name == "duration":
+                        example_params.append("1h")
+                    elif param_name == "reason":
+                        example_params.append("\"breaking rules\"")
+                    elif param_name == "message_id":
+                        example_params.append("123456789012345678")
+                    elif param_name == "prize":
+                        example_params.append("\"Nitro\"")
+                    elif param_name == "winners":
+                        example_params.append("1")
+                    else:
+                        example_params.append(f"[{param_name}]")
+                else:
+                    example_params.append(part)
+                    
+            examples_text = f"{cmd_emoji} `{CONFIG['prefix']}{cmd.name} {' '.join(example_params)}`"
+            
+        embed.add_field(
+            name="Example",
+            value=examples_text,
+            inline=False
+        )
         
         await ctx.send(embed=embed)
 
