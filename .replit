@@ -1,0 +1,40 @@
+modules = ["python-3.11"]
+
+[nix]
+channel = "stable-24_05"
+packages = ["git"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "run_clone_script"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "RepoCloner"
+
+[[workflows.workflow]]
+name = "run_clone_script"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python clone_repo.py"
+
+[[workflows.workflow]]
+name = "RepoCloner"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python clone_repo.py"
+
+[deployment]
+run = ["sh", "-c", "python clone_repo.py"]
