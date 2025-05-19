@@ -20,6 +20,10 @@ args = "run_clone_script"
 task = "workflow.run"
 args = "RepoCloner"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "WebApp"
+
 [[workflows.workflow]]
 name = "run_clone_script"
 author = "agent"
@@ -36,5 +40,18 @@ author = "agent"
 task = "shell.exec"
 args = "python clone_repo.py"
 
+[[workflows.workflow]]
+name = "WebApp"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd multipurpos && python app.py"
+waitForPort = 5000
+
 [deployment]
 run = ["sh", "-c", "python clone_repo.py"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80
